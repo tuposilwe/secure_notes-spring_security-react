@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;
@@ -35,21 +36,27 @@ import java.time.LocalDate;
 public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf
+                .csrfTokenRepository(
+                        CookieCsrfTokenRepository.withHttpOnlyFalse()
+                ));
         http.authorizeHttpRequests((requests) ->
                 requests
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/csrf-token").permitAll()
 //                        .requestMatchers("/contact").permitAll()
 //                        .requestMatchers("/public/**").permitAll()
 //                        .requestMatchers("/admin").denyAll()
                         .anyRequest()
                         .authenticated());
-        http.csrf(AbstractHttpConfigurer::disable);
+
         http.sessionManagement(
                 session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
 //        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
+
 //        http.addFilterBefore(new CustomLoggingFilter(),
 //                UsernamePasswordAuthenticationFilter.class);
 //        http.addFilterAfter(new RequestValidationFilter(),CustomLoggingFilter.class);
