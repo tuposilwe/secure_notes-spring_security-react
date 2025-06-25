@@ -30,13 +30,13 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
     AuthenticationManager authenticationManager;
 
     Authentication authentication;
 
     @PostMapping("/public/signin")
-    public ResponseEntity<?> authenticateUser(
-            @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {
             authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
@@ -49,7 +49,7 @@ public class AuthController {
             return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
         }
 
-        //set the authentication
+//      set the authentication
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
