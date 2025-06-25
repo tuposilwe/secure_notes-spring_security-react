@@ -52,6 +52,7 @@ public class SecurityConfig {
         http.httpBasic(Customizer.withDefaults());
         http.addFilterBefore(new CustomLoggingFilter(),
                 UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(new RequestValidationFilter(),CustomLoggingFilter.class);
         return http.build();
     }
 
