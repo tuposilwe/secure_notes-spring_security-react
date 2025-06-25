@@ -50,9 +50,9 @@ public class SecurityConfig {
         );
 //        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
-        http.addFilterBefore(new CustomLoggingFilter(),
-                UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAfter(new RequestValidationFilter(),CustomLoggingFilter.class);
+//        http.addFilterBefore(new CustomLoggingFilter(),
+//                UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterAfter(new RequestValidationFilter(),CustomLoggingFilter.class);
         return http.build();
     }
 
