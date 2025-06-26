@@ -1,8 +1,8 @@
 package com.secure.notes.controllers;
 
 import com.secure.notes.security.jwt.JwtUtils;
-import com.secure.notes.security.requests.LoginRequest;
-import com.secure.notes.security.requests.LoginResponse;
+import com.secure.notes.security.request.LoginRequest;
+import com.secure.notes.security.response.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

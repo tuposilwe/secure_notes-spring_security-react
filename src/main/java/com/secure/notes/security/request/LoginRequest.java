@@ -1,4 +1,4 @@
-package com.secure.notes.security.requests;
+package com.secure.notes.security.request;
 
 import lombok.Getter;
 import lombok.Setter;

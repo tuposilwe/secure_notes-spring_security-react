@@ -54,10 +54,10 @@ public class SecurityConfig {
                 exception.authenticationEntryPoint(unauthorizedHandler));
         http.addFilterBefore(authenticationJwtTokenFilter(),
                 UsernamePasswordAuthenticationFilter.class);
-        http.sessionManagement(
-                session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
+//        http.sessionManagement(
+//                session ->
+//                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//        );
 //        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
 
