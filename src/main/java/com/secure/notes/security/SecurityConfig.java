@@ -3,6 +3,7 @@ package com.secure.notes.security;
 import com.secure.notes.security.jwt.AuthEntryPointJwt;
 import com.secure.notes.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +32,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig {
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -56,6 +62,20 @@ public class SecurityConfig {
                 exception.authenticationEntryPoint(unauthorizedHandler));
         http.addFilterBefore(authenticationJwtTokenFilter(),
                 UsernamePasswordAuthenticationFilter.class);
+
+        http
+                .cors(cors -> cors
+                        .configurationSource(request -> {
+                            CorsConfiguration config = new CorsConfiguration();
+                            config.setAllowedOrigins(List.of(frontendUrl));
+                            config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                            config.setAllowedHeaders(List.of("*"));
+                            config.setAllowCredentials(true);
+                            config.setMaxAge(3600L);
+                            return config;
+                        })
+                );
+
 //        http.sessionManagement(
 //                session ->
 //                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
