@@ -37,8 +37,10 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf
+                .ignoringRequestMatchers("/api/auth/public/**")
                 .csrfTokenRepository(
                         CookieCsrfTokenRepository.withHttpOnlyFalse()
+
                 ));
         http.authorizeHttpRequests((requests) ->
                 requests
@@ -60,6 +62,7 @@ public class SecurityConfig {
 //        );
 //        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
+
 
 //        http.addFilterBefore(new CustomLoggingFilter(),
 //                UsernamePasswordAuthenticationFilter.class);
