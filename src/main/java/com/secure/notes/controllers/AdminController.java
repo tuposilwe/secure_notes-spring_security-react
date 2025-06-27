@@ -6,7 +6,6 @@ import com.secure.notes.models.User;
 import com.secure.notes.repositories.RoleRepository;
 import com.secure.notes.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.tree.pattern.ParseTreePattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
