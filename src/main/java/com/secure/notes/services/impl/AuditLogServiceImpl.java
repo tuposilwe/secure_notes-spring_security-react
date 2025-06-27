@@ -5,6 +5,7 @@ import com.secure.notes.models.Note;
 import com.secure.notes.repositories.AuditLogRepository;
 import com.secure.notes.services.AuditLogService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuditLogServiceImpl implements AuditLogService {
 
+    @Autowired
     private final AuditLogRepository auditLogRepository;
 
     @Override

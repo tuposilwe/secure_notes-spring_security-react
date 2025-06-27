@@ -13,16 +13,20 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class NoteServiceImpl implements NoteService {
+    @Autowired
     private final NoteRepository noteRepository;
-    private AuditLogService auditLogService;
+
+    @Autowired
+    private final AuditLogService auditLogService;
 
     @Override
     public Note createNoteForUser(String username, String content) {
         Note note = new Note();
         note.setContent(content);
         note.setOwnerUsername(username);
-        auditLogService.logNoteCreation(username,note);
-        return noteRepository.save(note);
+        Note savedNote = noteRepository.save(note);
+        auditLogService.logNoteCreation(username,savedNote);
+        return savedNote;
     }
 
     @Override
