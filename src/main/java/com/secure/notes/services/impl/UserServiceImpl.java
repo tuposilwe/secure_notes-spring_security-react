@@ -5,6 +5,7 @@ import com.secure.notes.models.AppRole;
 import com.secure.notes.models.PasswordResetToken;
 import com.secure.notes.models.Role;
 import com.secure.notes.models.User;
+import com.secure.notes.repositories.PasswordResetTokenRepository;
 import com.secure.notes.repositories.RoleRepository;
 import com.secure.notes.repositories.UserRepository;
 import com.secure.notes.services.UserService;
