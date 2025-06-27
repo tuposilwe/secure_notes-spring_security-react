@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +47,15 @@ public class AuditLogServiceImpl implements AuditLogService {
         log.setTimestamp(LocalDateTime.now());
 
         auditLogRepository.save(log);
+    }
+
+    @Override
+    public List<AuditLog> getAllAuditLogs() {
+        return auditLogRepository.findAll();
+    }
+
+    @Override
+    public List<AuditLog> getAllAuditLogsForNoteId(Long id) {
+        return auditLogRepository.findByNoteId(id);
     }
 }
